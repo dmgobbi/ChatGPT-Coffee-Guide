@@ -68,7 +68,6 @@ input[type="submit"] {
   width: 320px;
   height: 200px;
   overflow-y: auto;
-  margin-top: 20px;
 }
 .container {
   display: flex;
@@ -76,7 +75,7 @@ input[type="submit"] {
   align-items: flex-start;
 }
 .input-section, .chat-section {
-  margin: 10px;
+  margin: 25px;
 }
 .input-section {
   order: 1;
