@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<head>
+  <title>Make Coffee with ChatGPT</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+</head>
+<body>
+  <h3>Guide to Making Coffee</h3>
+  <div class="container">
+    <div class="input-section">
+      <form action="/" method="post">
+        <textarea name="user_input" placeholder="Describe your kitchen and actions" rows="4" cols="50" required></textarea>
+        <div class="button-wrapper">
+          <input type="submit" value="Get Next Step" />
+        </div>
+      </form>
+    </div>
+    <div class="chat-section">
+      <div class="conversation">
+        {% for turn in conversation %}
+          <div class="{{ turn.role }}">
+            <strong>{{ turn.role }}:</strong> {{ turn.content }}
+          </div>
+        {% endfor %}
+      </div>
+      <div class="button-wrapper">
+        <form action="/clear" method="post">
+          <input type="submit" value="Clear Chat History" />
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
