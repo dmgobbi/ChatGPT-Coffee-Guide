@@ -1,21 +1,32 @@
 <!DOCTYPE html>
 <head>
-  <title>OpenAI Quickstart</title>
-  <link
-    rel="shortcut icon"
-    href="{{ url_for('static', filename='dog.png') }}"
-  />
+  <title>Make Coffee with ChatGPT</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
 </head>
-
 <body>
-  <img src="{{ url_for('static', filename='dog.png') }}" class="icon" />
-  <h3>Name my pet</h3>
-  <form action="/" method="post">
-    <input type="text" name="animal" placeholder="Enter an animal" required />
-    <input type="submit" value="Generate names" />
-  </form>
-  {% if result %}
-  <div class="result">{{ result }}</div>
-  {% endif %}
+  <h3>Guide to Making Coffee</h3>
+  <div class="container">
+    <div class="input-section">
+      <form action="/" method="post">
+        <textarea name="user_input" placeholder="Describe your kitchen and actions" rows="4" cols="50" required></textarea>
+        <div class="button-wrapper">
+          <input type="submit" value="Get Next Step" />
+        </div>
+      </form>
+    </div>
+    <div class="chat-section">
+      <div class="conversation">
+        {% for turn in conversation %}
+          <div class="{{ turn.role }}">
+            <strong>{{ turn.role }}:</strong> {{ turn.content }}
+          </div>
+        {% endfor %}
+      </div>
+      <div class="button-wrapper">
+        <form action="/clear" method="post">
+          <input type="submit" value="Clear Chat History" />
+        </form>
+      </div>
+    </div>
+  </div>
 </body>
