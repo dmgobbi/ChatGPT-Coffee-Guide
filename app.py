@@ -38,22 +38,20 @@ def index():
         9. Key Principles: The key is to keep the instructions simple, direct, and specific, while also maintaining a conversational tone and expecting further input from the human.
         """
 
-        # Add the conversation history to the prompt
-        for turn in session['conversation']:
+        # Include only the last 4 turns to save tokens
+        for turn in session['conversation'][-4:]:
             prompt += f"{turn['role']}: {turn['content']}\n"
         
-        # Generate a response from ChatGPT
         response = openai.Completion.create(
             model="text-davinci-003",
             prompt=prompt,
-            temperature=0.6,
-            max_tokens=100
+            temperature=1.0,
+            max_tokens=50
         )
-        
-        # Add the generated response to the conversation history
-        session['conversation'].append({"role": "ChatGPT", "content": response.choices[0].text.strip()})
-        # Prints ChatGPT's response to the console
-        print(f"ChatGPT: {response.choices[0].text.strip()}")
+
+        cleaned_response = response.choices[0].text.strip().replace("ChatGPT:", "").strip()
+        session['conversation'].append({"role": "ChatGPT", "content": cleaned_response})
+
         session.modified = True  
         return redirect(url_for("index"))
  
